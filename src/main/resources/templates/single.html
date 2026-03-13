@@ -35,6 +35,10 @@
             <span class="type"
                   th:if="${pokemon.secondaryType != null and !#strings.isEmpty(pokemon.secondaryType)}"
                   th:text="${pokemon.secondaryType}">—</span>
+            <a class="type"
+               th:href="@{/pokemon/by-primary-type(primaryType=${pokemon.primaryType})}">
+                ← Back to <span th:text="${pokemon.primaryType}">Type</span>
+            </a>
         </div>
 
         <table class="table">

@@ -60,20 +60,27 @@ public class PokedexRepository {
         );
     }
 
-    public List<Pokemon> getAllPokemonByType(String type){
+    public List<Pokemon> getAllPokemonByType(String type) throws SQLException {
         List<Pokemon> allPokemon = new ArrayList<>();
-        try{
-            Connection database = new ConnectionManager().getConnection();
-            PreparedStatement preparedStatement = database.prepareStatement("SELECT * FROM pokemon WHERE primary_type = ?");
-            preparedStatement.setString(1, type);
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                allPokemon.add(Pokemon.parseString(rs));
-            }
-            database.close();
-        }
-        catch(Exception e){
-            System.out.println("Could not prepare statement");
+        Connection database = new ConnectionManager().getConnection();
+        PreparedStatement preparedStatement = database.prepareStatement("SELECT * FROM pokemon WHERE primary_type = ?");
+        preparedStatement.setString(1, type);
+        ResultSet rs = preparedStatement.executeQuery();
+
+        while (rs.next()) {
+            Pokemon pokemon = new Pokemon(
+                    rs.getInt("pokedex_number"),
+                    rs.getString("name"),
+                    rs.getInt("speed"),
+                    rs.getInt("special_defence"),
+                    rs.getInt("special_attack"),
+                    rs.getInt("defence"),
+                    rs.getInt("attack"),
+                    rs.getInt("hp"),
+                    rs.getString("primary_type"),
+                    rs.getString("secondary_type")
+            );
+            allPokemon.add(pokemon);
         }
         return allPokemon;
     }

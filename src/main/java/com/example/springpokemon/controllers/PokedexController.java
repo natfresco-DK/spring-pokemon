@@ -31,7 +31,14 @@ public class PokedexController {
         return mav;
     }
 
-    @GetMapping("/single")
+    @GetMapping("/pokemon/by-primary-type")
+    public ModelAndView byPrimaryType(@RequestParam String primaryType) throws SQLException{
+        ModelAndView mav = new ModelAndView("type-select");
+        mav.addObject("byType", pokeService.getAllPokemonByType(primaryType));
+        return mav;
+    }
+
+    @GetMapping("/pokemon/single")
     public ModelAndView getSingleById(@RequestParam String id){
         ModelAndView mav = new ModelAndView("single");
         Pokemon pokemon = pokeService.getSingleById(id);

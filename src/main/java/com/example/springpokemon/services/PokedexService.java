@@ -21,4 +21,8 @@ public class PokedexService {
             throw new NoSuchElementException("Could not fetch pokemon", e);
         }
     }
+
+    public List<Pokemon> getAllPokemonByType(String type) throws SQLException{
+        return repo.getAllPokemonByType(type);
+    }
 }

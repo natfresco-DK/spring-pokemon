@@ -23,7 +23,7 @@
 
     <nav>
       <a th:href="@{/fire}">Fire</a>
-      <a th:href="@{/pokemon/by-primary-type}">BY TYPE</a>
+      <a th:href="@{/type-select}">BY TYPE</a>
     </nav>
   </header>
 
@@ -31,24 +31,67 @@
   <div class="card">
     <div class="row">
       <nav>
-        <a>GRASS</a>
-        <a th:href="@{/fire}">FIRE</a>
-        <a>WATER</a>
-        <a>BUG</a>
-        <a>NORMAL</a>
-        <a>POISON</a>
-        <a>ELECTRIC</a>
-        <a>GROUND</a>
-        <a>FAIRY</a>
-        <a>FIGHTING</a>
-        <a>PSYCHIC</a>
-        <a>ROCK</a>
-        <a>GHOST</a>
-        <a>ICE</a>
-        <a>DRAGON</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Grass')}">GRASS</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Fire')}">FIRE</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Water')}">WATER</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Bug')}">BUG</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Normal')}">NORMAL</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Poison')}">POISON</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Electric')}">ELECTRIC</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Ground')}">GROUND</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Fairy')}">FAIRY</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Fighting')}">FIGHTING</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Psychic')}">PSYCHIC</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Rock')}">ROCK</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Ghost')}">GHOST</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Ice')}">ICE</a>
+        <a th:href="@{/pokemon/by-primary-type(primaryType='Dragon')}">DRAGON</a>
       </nav>
     </div>
   </div>
+
+  <div class="card">
+    <div class="row">
+      <span class="badge">TYPE</span>
+      <span class="type"
+            th:if="${byType != null}"
+            th:text="${byType[0].primaryType}"
+      >
+          Fire
+        </span>
+
+      <span class="badge"
+            th:if="${byType != null}"
+            th:text="${#lists.size(byType)} + ' FOUND'">
+          0 FOUND
+        </span>
+    </div>
+
+    <table class="table" th:if="${byType != null and !#lists.isEmpty(byType)}">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>NAME</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="pokemon : ${byType}">
+        <td>
+        <a th:href="@{/pokemon/single(id=${pokemon.pokedexNumber})}"
+                th:text="${pokemon.pokedexNumber}"></a></td>
+        <td>
+          <a th:href="@{/pokemon/single(id=${pokemon.pokedexNumber})}"
+             th:text="${pokemon.name}">
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="footer">
+    <p>POKÉDEX TERMINAL • TRAINERS WELCOME</p>
+    <p class="small">Built with Spring Boot & Thymeleaf</p>
+  </footer>
 
 </div>
 </body>

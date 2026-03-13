@@ -4,9 +4,15 @@ import java.sql.*;
 
 public class ConnectionManager {
     private Connection conn;
+    private final String url = System.getenv("DB_URL");
+    private final String user = System.getenv("DB_USER");
+    private final String password = System.getenv("DB_PASSWORD");
 
     public ConnectionManager() throws SQLException {
-        this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pokemon","root","hejsa");
+        if(url == null || user == null || password == null){
+            throw new RuntimeException("missing database variables");
+        }
+        this.conn = DriverManager.getConnection(url,user,password);
     }
 
     public Connection getConnection (){
