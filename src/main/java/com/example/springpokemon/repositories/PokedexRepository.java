@@ -59,4 +59,22 @@ public class PokedexRepository {
                 rs.getString("secondary_type")
         );
     }
+
+    public List<Pokemon> getAllPokemonByType(String type){
+        List<Pokemon> allPokemon = new ArrayList<>();
+        try{
+            Connection database = new ConnectionManager().getConnection();
+            PreparedStatement preparedStatement = database.prepareStatement("SELECT * FROM pokemon WHERE primary_type = ?");
+            preparedStatement.setString(1, type);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                allPokemon.add(Pokemon.parseString(rs));
+            }
+            database.close();
+        }
+        catch(Exception e){
+            System.out.println("Could not prepare statement");
+        }
+        return allPokemon;
+    }
 }
