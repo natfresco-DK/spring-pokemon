@@ -1,37 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>POKÉMON • COUNTS</title>
-  <link rel="stylesheet" th:href="@{/css/pokemon.css}">
-  <link rel="stylesheet" href="../static/pokemon.css">
-
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>POKÉMON • COUNTS</title>
+    <link rel="stylesheet" th:href="@{/pokemon.css}"/>
+    <link rel="stylesheet" href="../static/pokemon.css"/>
 </head>
 <body>
 <div class="container">
+    <header>
+        <div class="brand">
+            <div class="pixel-icon" aria-hidden="true"></div>
+            <div>
+                <h1>COUNT PER TYPE</h1>
+                <div class="sub">HOW MANY PER PRIMARY TYPE</div>
+            </div>
+        </div>
 
-  <header>
-    <div class="brand">
-      <div class="pixel-icon" aria-hidden="true"></div>
-      <div>
-        <h1>COUNT PER TYPE</h1>
-        <div class="sub">HOW MANY PER PRIMARY TYPE</div>
-      </div>
+        <nav>
+            <a th:href="@{/single}">SINGLE</a>
+            <a th:href="@{/all-by-primary}">BY TYPE</a>
+            <a th:href="@{/battle}">BATTLE</a>
+            <a th:href="@{/count}">COUNTS</a>
+        </nav>
+    </header>
+
+    <div class="spacer"></div>
+
+    <div class="card">
+        <div class="row">
+            <span class="badge">TOTAL TYPES</span>
+            <span
+                    class="badge"
+                    th:text="${typeCounts != null ? typeCounts.size() : 0}"
+            >0</span
+            >
+        </div>
+
+        <table
+                class="table"
+                th:if="${typeCounts != null and !typeCounts.isEmpty()}"
+        >
+            <thead>
+            <tr>
+                <th>PRIMARY TYPE</th>
+                <th>COUNT</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="entry : ${typeCounts}">
+                <td>
+                <span
+                        class="type"
+                        th:classappend="${' ' + #strings.toLowerCase(entry.key)}"
+                        th:text="${entry.key}"
+                >FIRE</span
+                >
+                </td>
+                <td th:text="${entry.value}">12</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
-    <nav>
-      <a th:href="@{/pokemon}">SINGLE</a>
-      <a th:href="@{/pokemon/by-primary-type}">BY TYPE</a>
-      <a th:href="@{/pokemon/averages}">AVERAGES</a>
-      <a th:href="@{/pokemon/counts}">COUNTS</a>
-    </nav>
-  </header>
-
-  <div class="card">
-    Show data here!
-  </div>
-
 </div>
 </body>
 </html>

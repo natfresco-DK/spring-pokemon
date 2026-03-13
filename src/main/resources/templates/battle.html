@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>POKÉMON • COUNTS</title>
-  <link rel="stylesheet" th:href="@{/css/pokemon.css}">
+  <link rel="stylesheet" th:href="@{/pokemon.css}">
   <link rel="stylesheet" href="../static/pokemon.css">
 
 </head>
@@ -15,8 +15,8 @@
     <div class="brand">
       <div class="pixel-icon" aria-hidden="true"></div>
       <div>
-        <h1>COUNT PER TYPE</h1>
-        <div class="sub">HOW MANY PER PRIMARY TYPE</div>
+        <h1>BATTLE TIME!</h1>
+        <div class="sub">Who will be the victor?</div>
       </div>
     </div>
 
@@ -28,8 +28,35 @@
     </nav>
   </header>
 
-  <div class="card">
-    Show data here!
+  <div class="spacer"></div>
+
+  <div th:if="${battleResults != null}" class="card">
+    <div class="row">
+      <span class="badge">#<span th:text="${battleResults.battler1.pokedexNumber}">25</span></span>
+      <h2 th:text="${battleResults.battler1.name}">Pikachu</h2>
+      <h2>Combined stats: </h2>
+      <h2 th:text="${battleResults.battler1.getCombinedStats()}">999</h2>
+    </div>
+  </div>
+  <div th:if="${battleResults != null}" class="card">
+    <div class="row">
+      <span class="badge">#<span th:text="${battleResults.battler2.pokedexNumber}">25</span></span>
+      <h2 th:text="${battleResults.battler2.name}">Pikachu</h2>
+      <h2>Combined stats: </h2>
+      <h2 th:text="${battleResults.battler2.getCombinedStats()}">999</h2>
+    </div>
+  </div>
+  <div class="spacer"><h1></h1></div>
+  <div th:if="${battleResults != null}" class="card">
+    <div class="row">
+
+      <span class="badge">#<span th:text="${battleResults.winner.pokedexNumber}">25</span></span>
+      <h2 th:text="${battleResults.winner.name}">Pikachu</h2>
+      <h2>Combined stats: </h2>
+      <h2 th:text="${battleResults.winner.getCombinedStats()}">999</h2>
+      <h2>Winner!!!!!</h2>
+
+    </div>
   </div>
 
 </div>

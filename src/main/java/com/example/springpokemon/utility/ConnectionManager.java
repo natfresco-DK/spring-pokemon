@@ -7,7 +7,7 @@ public class ConnectionManager {
 
     public ConnectionManager() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pokemon","root","hejsa");
+            this.conn = DriverManager.getConnection("");
         }
         catch (Exception e){
             System.out.println("Could not connect to database");
